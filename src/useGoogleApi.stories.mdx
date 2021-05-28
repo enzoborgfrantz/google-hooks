@@ -1,0 +1,25 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import {
+  GoogleApiProvider,
+  useGoogleApi as useGoogleApiHook,
+} from "./useGoogleApi";
+
+<Meta
+  title="hooks/useGoogleApi"
+  decorators={[
+    (Story) => (
+      <GoogleApiProvider>
+        <Story />
+      </GoogleApiProvider>
+    ),
+  ]}
+/>
+
+export const Template = (args) => {
+  const { isGoogleApiReady } = useGoogleApiHook();
+  return isGoogleApiReady ? "Google API ready 🟢" : "Google API not ready 🔴";
+};
+
+<Canvas>
+  <Story name="useGoogleApi">{Template.bind({})}</Story>
+</Canvas>
