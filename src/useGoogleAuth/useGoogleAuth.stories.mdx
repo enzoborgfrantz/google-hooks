@@ -1,0 +1,42 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import {
+  GoogleAuthProvider,
+  useGoogleAuth as useGoogleAuthHook,
+} from "./useGoogleAuth";
+import { GoogleApiProvider } from "../useGoogleApi";
+import { Profile } from "./helpers";
+
+<Meta
+  title="hooks/useGoogleAuth"
+  decorators={[
+    (Story) => (
+      <GoogleApiProvider>
+        <GoogleAuthProvider>
+          <Story />
+        </GoogleAuthProvider>
+      </GoogleApiProvider>
+    ),
+  ]}
+/>
+
+export const Template = (args) => {
+  const {
+    isUserAuthenticated,
+    userProfile,
+    signIn,
+    signOut,
+  } = useGoogleAuthHook();
+  console.log({ isUserAuthenticated, userProfile, signIn, signOut });
+  return isUserAuthenticated ? (
+    <>
+      <Profile {...userProfile} />
+      <button onClick={signOut}>Sign Out</button>
+    </>
+  ) : (
+    <button onClick={signIn}>Sign In</button>
+  );
+};
+
+<Canvas>
+  <Story name="useGoogleAuth">{Template.bind({})}</Story>
+</Canvas>

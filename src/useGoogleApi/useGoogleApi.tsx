@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 
-import { useScript } from "./useScript";
+import { useScript } from "../useScript";
 
-import { googleAPIClientId as clientId } from "../credentials";
+import { googleAPIClientId as clientId } from "../../credentials";
 
 const gapiAttributes = {
   clientId,
@@ -31,6 +31,7 @@ const useGoogleApiProvider = () => {
         const clientPromise = gapi.client.init(gapiAttributes).then(() => {
           console.log("client loaded", window.gapi.client.drive);
         });
+        // @TODO this is drive related, move it
         const drivePromise = gapi.client.load("drive", "v3");
 
         Promise.all([authPromise, clientPromise, drivePromise]).then(() =>
